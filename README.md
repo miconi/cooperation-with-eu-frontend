@@ -4,19 +4,9 @@ Frontend for the OpenAIRE Data Mining project: Analysing scholarly cooperation w
 
 The frontend runs in the browser as a standalone JavaScript application.
 
-## How to build
-
-You need to have bower installed on your machine (`npm install -g bower`).
-
-Run in project root directory:
-
-```
-bower install
-```
-
 ## How to run
 
-Build the project and just open `index.html` locally in your browser.
+Just open `index.html` locally in your browser.
 
 ## Documentation
 
