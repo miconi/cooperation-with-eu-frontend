@@ -6,7 +6,8 @@
 
 ///<reference path="../typings/main.d.ts" />
 
-queue = require('queue')
+var queue = require('queue');
+var Enumerable = require('linqjs');
 
 /**
  * Creates an instance of DataProvider.
@@ -24,8 +25,8 @@ class DataProvider {
     getConnectionsWithPositions(callback) {
         queue.queue()
             .defer(d3.csv, "data/connections.csv")
-            .defer(d3.csv, "data/connections.csv")
-            .await(callback); // function that uses files
+            .defer(d3.csv, "data/positions.csv")
+            .await(this.joinConnectionsWithPositionsCallback(callback));
     }
 
     /**
@@ -34,5 +35,60 @@ class DataProvider {
     getConnections(callback) {
         d3.csv(this.connectionsUri, callback);
     }
+
+    private joinConnectionsWithPositionsCallback(callback): any {
+        function joinConnectionsWithPositions(connections: Connection[], positions: CountryPosition[]): any {
+            return Enumerable.from(connections)
+                .join(
+                    Enumerable.from(positions),
+                    "$.countryFrom",
+                    "$.country",
+                    function (connection, origin) {
+                        return {
+                            origin,
+                            countryTo: connection.countryTo,
+                            thickness: connection.thickness
+                        };
+                    }
+                )
+                .join(
+                    Enumerable.from(positions),
+                    "$.countryTo",
+                    "$.country",
+                    function (connection, destination) {
+                        return {
+                            origin: connection.origin,
+                            destination,
+                            thickness: connection.thickness,
+                        };
+                    }
+                )
+                .where("$.thickness > 20000")
+                .toArray();
+        }
+
+        return function (error, connections: Connection[], positions: CountryPosition[]) {
+            if (error !== null) {
+                callback(error, null)
+            } else {
+                callback(error, joinConnectionsWithPositions(connections, positions));
+            }
+        }
+    }
+
+
 }
+
+interface Connection {
+    countryFrom: string;
+    countryTo: string;
+    thickness: string;
+}
+
+interface CountryPosition {
+    country: string;
+    latitude: string;
+    longitude: string;
+}
+
 

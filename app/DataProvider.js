@@ -4,7 +4,8 @@
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
 ///<reference path="../typings/main.d.ts" />
-queue = require('queue');
+var queue = require('queue');
+var Enumerable = require('linqjs');
 /**
  * Creates an instance of DataProvider.
  *
@@ -21,14 +22,43 @@ var DataProvider = (function () {
     DataProvider.prototype.getConnectionsWithPositions = function (callback) {
         queue.queue()
             .defer(d3.csv, "data/connections.csv")
-            .defer(d3.csv, "data/connections.csv")
-            .await(callback); // function that uses files
+            .defer(d3.csv, "data/positions.csv")
+            .await(this.joinConnectionsWithPositionsCallback(callback));
     };
     /**
      * Gets connections as a TODO.
      */
     DataProvider.prototype.getConnections = function (callback) {
         d3.csv(this.connectionsUri, callback);
+    };
+    DataProvider.prototype.joinConnectionsWithPositionsCallback = function (callback) {
+        function joinConnectionsWithPositions(connections, positions) {
+            return Enumerable.from(connections)
+                .join(Enumerable.from(positions), "$.countryFrom", "$.country", function (connection, origin) {
+                return {
+                    origin: origin,
+                    countryTo: connection.countryTo,
+                    thickness: connection.thickness
+                };
+            })
+                .join(Enumerable.from(positions), "$.countryTo", "$.country", function (connection, destination) {
+                return {
+                    origin: connection.origin,
+                    destination: destination,
+                    thickness: connection.thickness
+                };
+            })
+                .where("$.thickness > 20000")
+                .toArray();
+        }
+        return function (error, connections, positions) {
+            if (error !== null) {
+                callback(error, null);
+            }
+            else {
+                callback(error, joinConnectionsWithPositions(connections, positions));
+            }
+        };
     };
     return DataProvider;
 })();

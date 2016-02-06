@@ -4,9 +4,10 @@ requirejs.config({
     paths: {
         "components": "../bower_components",
         "d3": "../bower_components/d3/d3",
+        "datamaps": "../bower_components/datamaps/dist/datamaps.world",
         "jquery": "../bower_components/jquery/dist/jquery",
         "jquery.bootstrap": "../bower_components/bootstrap/dist/js/bootstrap",
-        "datamaps": "../bower_components/datamaps/dist/datamaps.world",
+        "linqjs": "../bower_components/linqjs/linq",
         "queue": "../bower_components/d3-queue/d3-queue",
         "topojson": "../bower_components/topojson/topojson",
     },
@@ -25,7 +26,7 @@ requirejs.config({
             deps: ['d3']
         },
         DataProvider: {
-            deps: ['queue']
+            deps: ['queue', 'linqjs']
         }
     }
 });
