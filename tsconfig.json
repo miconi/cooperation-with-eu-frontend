@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "amd"
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "cooperation-with-eu-frontend",
+  "authors": [
+    "Michał Oniszczuk <m.oniszczuk@icm.edu.pl>"
+  ],
+  "description": "Frontend for the OpenAIRE Data Mining project: Analysing scholarly cooperation with EU.",
+  "main": "www/app.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "homepage": "http://adalab.icm.edu.pl",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "requirejs": "^2.1.22",
+    "bootstrap": "^3.3.6",
+    "d3": "^3.5.14",
+    "datamaps": "^0.4.4",
+    "d3-queue": "^2.0.2"
+  }
+}
