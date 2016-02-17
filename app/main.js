@@ -5,7 +5,7 @@ requirejs(["require", "linqjs", "jquery", "datamaps", "DataProvider"], function(
     });
     var dataProvider = new DataProvider("data/connections.csv");
 
-    dataProvider.getConnectionsWithPositions(makeMyMap);
+    dataProvider.getConnectionsWithPositions(makeMyMap, 20000);
 
     function makeMyMap(error, connections) {
         console.log(connections);

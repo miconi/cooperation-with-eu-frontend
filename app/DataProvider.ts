@@ -22,11 +22,11 @@ class DataProvider {
     constructor(private connectionsUri: string) {
     }
 
-    getConnectionsWithPositions(callback) {
+    getConnectionsWithPositions(callback, threshold: number) {
         queue.queue()
             .defer(d3.csv, "data/connections.csv")
             .defer(d3.csv, "data/positions.csv")
-            .await(this.joinConnectionsWithPositionsCallback(callback));
+            .await(this.joinConnectionsWithPositionsCallback(callback, threshold));
     }
 
     /**
@@ -36,7 +36,7 @@ class DataProvider {
         d3.csv(this.connectionsUri, callback);
     }
 
-    private joinConnectionsWithPositionsCallback(callback): any {
+    private joinConnectionsWithPositionsCallback(callback, threshold: number): any {
         function joinConnectionsWithPositions(connections: Connection[], positions: CountryPosition[]): any {
             return Enumerable.from(connections)
                 .join(
@@ -63,7 +63,7 @@ class DataProvider {
                         };
                     }
                 )
-                .where("$.thickness > 20000")
+                .where("$.thickness > " + threshold)
                 .toArray();
         }
 

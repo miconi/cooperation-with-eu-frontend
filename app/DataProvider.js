@@ -19,11 +19,11 @@ var DataProvider = (function () {
     function DataProvider(connectionsUri) {
         this.connectionsUri = connectionsUri;
     }
-    DataProvider.prototype.getConnectionsWithPositions = function (callback) {
+    DataProvider.prototype.getConnectionsWithPositions = function (callback, threshold) {
         queue.queue()
             .defer(d3.csv, "data/connections.csv")
             .defer(d3.csv, "data/positions.csv")
-            .await(this.joinConnectionsWithPositionsCallback(callback));
+            .await(this.joinConnectionsWithPositionsCallback(callback, threshold));
     };
     /**
      * Gets connections as a TODO.
@@ -31,7 +31,7 @@ var DataProvider = (function () {
     DataProvider.prototype.getConnections = function (callback) {
         d3.csv(this.connectionsUri, callback);
     };
-    DataProvider.prototype.joinConnectionsWithPositionsCallback = function (callback) {
+    DataProvider.prototype.joinConnectionsWithPositionsCallback = function (callback, threshold) {
         function joinConnectionsWithPositions(connections, positions) {
             return Enumerable.from(connections)
                 .join(Enumerable.from(positions), "$.countryFrom", "$.country", function (connection, origin) {
@@ -48,7 +48,7 @@ var DataProvider = (function () {
                     thickness: connection.thickness
                 };
             })
-                .where("$.thickness > 20000")
+                .where("$.thickness > " + threshold)
                 .toArray();
         }
         return function (error, connections, positions) {
