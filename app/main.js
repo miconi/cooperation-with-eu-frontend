@@ -20,7 +20,7 @@ requirejs(["require", "linqjs", "jquery", "datamaps", "DataProvider"], function 
 
     function updateMap(error, connections) {
         console.log(connections);
-        map.arc(connections, {strokeWidth: 1, arcSharpness: 1.4});
+        map.arc(connections, {arcSharpness: 1.4});
     }
 
 });

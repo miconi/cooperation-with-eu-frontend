@@ -4,6 +4,7 @@
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
 ///<reference path="../typings/main.d.ts" />
+///<reference path="ScaleFactory.ts"/>
 var queue = require('queue');
 var Enumerable = require('linqjs');
 /**
@@ -23,7 +24,7 @@ var DataProvider = (function () {
         queue.queue()
             .defer(d3.csv, "data/connections.csv")
             .defer(d3.csv, "data/positions.csv")
-            .await(this.joinConnectionsWithPositionsCallback(callback, threshold));
+            .await(this.processDataCallback(callback, threshold));
     };
     /**
      * Gets connections as a TODO.
@@ -31,7 +32,27 @@ var DataProvider = (function () {
     DataProvider.prototype.getConnections = function (callback) {
         d3.csv(this.connectionsUri, callback);
     };
-    DataProvider.prototype.joinConnectionsWithPositionsCallback = function (callback, threshold) {
+    DataProvider.prototype.processDataCallback = function (callback, threshold) {
+        function processData(connections, positions) {
+            return scaleThickness(joinConnectionsWithPositions(connections, positions));
+        }
+        function scaleThickness(connections) {
+            var thicknesses = Enumerable.from(connections)
+                .select("Number($.thickness)")
+                .toArray();
+            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.0, 5.0]);
+            console.log(scale(30000));
+            console.log(thicknesses);
+            return Enumerable.from(connections)
+                .select(function (connection) {
+                return {
+                    origin: connection.origin,
+                    destination: connection.destination,
+                    strokeWidth: scale(Number(connection.thickness))
+                };
+            })
+                .toArray();
+        }
         function joinConnectionsWithPositions(connections, positions) {
             return Enumerable.from(connections)
                 .join(Enumerable.from(positions), "$.countryFrom", "$.country", function (connection, origin) {
@@ -56,7 +77,7 @@ var DataProvider = (function () {
                 callback(error, null);
             }
             else {
-                callback(error, joinConnectionsWithPositions(connections, positions));
+                callback(error, processData(connections, positions));
             }
         };
     };

@@ -26,7 +26,7 @@ requirejs.config({
             deps: ['d3']
         },
         DataProvider: {
-            deps: ['queue', 'linqjs']
+            deps: ['queue', 'linqjs', 'ScaleFactory']
         }
     }
 });
