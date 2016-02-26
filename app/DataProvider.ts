@@ -45,9 +45,9 @@ class DataProvider {
 
         function scaleThickness(connections: JoinedConnection[]): ComputedConnection[] {
             var thicknesses: number[] = Enumerable.from(connections)
-                .select("Number($.thickness)")
+                .select("Number($.value)")
                 .toArray();
-            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.0, 5.0]);
+            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.5, 5.0]);
             console.log(scale(30000));
             console.log(thicknesses);
 
@@ -56,7 +56,8 @@ class DataProvider {
                     return {
                         origin: connection.origin,
                         destination: connection.destination,
-                        strokeWidth: scale(Number(connection.thickness))
+                        strokeWidth: scale(Number(connection.value)),
+                        value: connection.value
                     };
                 })
                 .toArray();
@@ -72,7 +73,7 @@ class DataProvider {
                         return {
                             origin,
                             countryTo: connection.countryTo,
-                            thickness: connection.thickness
+                            value: connection.value
                         };
                     }
                 )
@@ -84,11 +85,11 @@ class DataProvider {
                         return {
                             origin: connection.origin,
                             destination,
-                            thickness: connection.thickness,
+                            value: connection.value,
                         };
                     }
                 )
-                .where("$.thickness > " + threshold)
+                .where("$.value > " + threshold)
                 .toArray();
         }
 
@@ -107,7 +108,7 @@ class DataProvider {
 interface Connection {
     countryFrom: string;
     countryTo: string;
-    thickness: string;
+    value: string;
 }
 
 interface CountryPosition {
@@ -119,12 +120,13 @@ interface CountryPosition {
 interface JoinedConnection {
     origin: CountryPosition;
     destination: CountryPosition;
-    thickness: string;
+    value: string;
 }
 
 interface ComputedConnection {
     origin: CountryPosition;
     destination: CountryPosition;
     strokeWidth: number;
+    value: number;
 }
 

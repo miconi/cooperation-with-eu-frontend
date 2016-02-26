@@ -38,9 +38,9 @@ var DataProvider = (function () {
         }
         function scaleThickness(connections) {
             var thicknesses = Enumerable.from(connections)
-                .select("Number($.thickness)")
+                .select("Number($.value)")
                 .toArray();
-            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.0, 5.0]);
+            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.5, 5.0]);
             console.log(scale(30000));
             console.log(thicknesses);
             return Enumerable.from(connections)
@@ -48,7 +48,8 @@ var DataProvider = (function () {
                 return {
                     origin: connection.origin,
                     destination: connection.destination,
-                    strokeWidth: scale(Number(connection.thickness))
+                    strokeWidth: scale(Number(connection.value)),
+                    value: connection.value
                 };
             })
                 .toArray();
@@ -59,17 +60,17 @@ var DataProvider = (function () {
                 return {
                     origin: origin,
                     countryTo: connection.countryTo,
-                    thickness: connection.thickness
+                    value: connection.value
                 };
             })
                 .join(Enumerable.from(positions), "$.countryTo", "$.country", function (connection, destination) {
                 return {
                     origin: connection.origin,
                     destination: destination,
-                    thickness: connection.thickness
+                    value: connection.value
                 };
             })
-                .where("$.thickness > " + threshold)
+                .where("$.value > " + threshold)
                 .toArray();
         }
         return function (error, connections, positions) {
