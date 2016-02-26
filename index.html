@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <head>
+    <title>Scholarly Cooperation</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css"
           href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -8,11 +9,14 @@
             src="bower_components/requirejs/require.js"></script>
 </head>
 <body>
-<div id="search-form" class="input-group">
-    <input id="threshold-input"
-           class="form-control"
-           value="20000"
-           autofocus/>
+<div class="header-gradient"></div>
+<h1>Scholarly Cooperation</h1>
+<div class="toolbox">
+    <div class="input-group">
+        <input id="threshold-input"
+               class="form-control"
+               value="20000"
+               autofocus/>
     <span class="input-group-btn">
         <button id="threshold-button"
                 class="btn btn-default">
@@ -20,8 +24,9 @@
         </button>
     </span>
 
+    </div>
+    <div><p>Connection info:
+        <span id="connectionInfo">hover on a connection to get info.</span></p></div>
 </div>
-<div><p>Connection info:
-    <span id="connectionInfo">hover on a connection to get info.</span></p></div>
 <div id="basic" class="map"></div>
 </body>
