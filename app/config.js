@@ -8,6 +8,7 @@ requirejs.config({
         "jquery": "../bower_components/jquery/dist/jquery",
         "jquery.bootstrap": "../bower_components/bootstrap/dist/js/bootstrap",
         "linqjs": "../bower_components/linqjs/linq",
+        "noUiSlider": "../bower_components/nouislider/distribute/nouislider",
         "queue": "../bower_components/d3-queue/d3-queue",
         "topojson": "../bower_components/topojson/topojson",
     },
@@ -27,7 +28,13 @@ requirejs.config({
         },
         DataProvider: {
             deps: ['queue', 'linqjs', 'ScaleFactory']
-        }
+        },
+        MapController: {
+            deps: ['datamaps']
+        },
+        ThresholdController: {
+            deps: ['noUiSlider']
+        },
     }
 });
 

@@ -17,41 +17,64 @@ var Enumerable = require('linqjs');
  * @param {string} graphByIdUri
  */
 var DataProvider = (function () {
-    function DataProvider(connectionsUri) {
+    function DataProvider(connectionsUri, positionsUri) {
         this.connectionsUri = connectionsUri;
+        this.positionsUri = positionsUri;
     }
+    DataProvider.prototype.getConnectionMinMax = function (callback) {
+        queue.queue()
+            .defer(d3.csv, this.connectionsUri)
+            .await(this.getConnectionMinMaxCallback(callback));
+    };
+    DataProvider.prototype.getConnectionMinMaxCallback = function (callback) {
+        return function (error, connections) {
+            if (error !== null) {
+                callback(error, null);
+            }
+            else {
+                callback(error, DataProvider.minMaxFromConnections(connections));
+            }
+        };
+    };
     DataProvider.prototype.getConnectionsWithPositions = function (callback, threshold) {
         queue.queue()
-            .defer(d3.csv, "data/connections.csv")
-            .defer(d3.csv, "data/positions.csv")
-            .await(this.processDataCallback(callback, threshold));
+            .defer(d3.csv, this.connectionsUri)
+            .defer(d3.csv, this.positionsUri)
+            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
     };
-    /**
-     * Gets connections as a TODO.
-     */
-    DataProvider.prototype.getConnections = function (callback) {
-        d3.csv(this.connectionsUri, callback);
-    };
-    DataProvider.prototype.processDataCallback = function (callback, threshold) {
+    DataProvider.prototype.getConnectionsWithPositionsCallback = function (callback, threshold) {
+        return function (error, connections, positions) {
+            if (error !== null) {
+                callback(error, null);
+            }
+            else {
+                callback(error, processData(connections, positions));
+            }
+        };
         function processData(connections, positions) {
-            return scaleThickness(joinConnectionsWithPositions(connections, positions));
+            var filteredConnections = filterConnections(connections);
+            var minMax = DataProvider.minMaxFromConnections(filteredConnections);
+            return addStrokeWidth(minMax, joinConnectionsWithPositions(filteredConnections, positions));
         }
-        function scaleThickness(connections) {
-            var thicknesses = Enumerable.from(connections)
-                .select("Number($.value)")
-                .toArray();
-            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.5, 5.0]);
-            console.log(scale(30000));
-            console.log(thicknesses);
+        function addStrokeWidth(minMax, connections) {
+            var scale = d3.scale.linear()
+                .domain(minMax)
+                .range([1.5, 7.0]);
             return Enumerable.from(connections)
                 .select(function (connection) {
                 return {
                     origin: connection.origin,
                     destination: connection.destination,
-                    strokeWidth: scale(Number(connection.value)),
+                    strokeWidth: scale(connection.value),
                     value: connection.value
                 };
             })
+                .toArray();
+        }
+        function filterConnections(connections) {
+            return Enumerable.from(connections)
+                .where("$.value >= " + threshold[0])
+                .where("$.value <= " + threshold[1])
                 .toArray();
         }
         function joinConnectionsWithPositions(connections, positions) {
@@ -60,7 +83,7 @@ var DataProvider = (function () {
                 return {
                     origin: origin,
                     countryTo: connection.countryTo,
-                    value: connection.value
+                    value: Number(connection.value)
                 };
             })
                 .join(Enumerable.from(positions), "$.countryTo", "$.country", function (connection, destination) {
@@ -70,17 +93,14 @@ var DataProvider = (function () {
                     value: connection.value
                 };
             })
-                .where("$.value > " + threshold)
                 .toArray();
         }
-        return function (error, connections, positions) {
-            if (error !== null) {
-                callback(error, null);
-            }
-            else {
-                callback(error, processData(connections, positions));
-            }
-        };
+    };
+    DataProvider.minMaxFromConnections = function (connections) {
+        var values = Enumerable.from(connections)
+            .select("Number($.value)")
+            .toArray();
+        return [d3.min(values), d3.max(values)];
     };
     return DataProvider;
 })();

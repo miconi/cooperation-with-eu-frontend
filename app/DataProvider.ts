@@ -20,46 +20,69 @@ var Enumerable = require('linqjs');
  * @param {string} graphByIdUri
  */
 class DataProvider {
-    constructor(private connectionsUri: string) {
+    constructor(private connectionsUri: string, private positionsUri: string) {
     }
 
-    getConnectionsWithPositions(callback, threshold: number) {
+    getConnectionMinMax(callback) {
         queue.queue()
-            .defer(d3.csv, "data/connections.csv")
-            .defer(d3.csv, "data/positions.csv")
-            .await(this.processDataCallback(callback, threshold));
+            .defer(d3.csv, this.connectionsUri)
+            .await(this.getConnectionMinMaxCallback(callback));
     }
 
-    /**
-     * Gets connections as a TODO.
-     */
-    getConnections(callback) {
-        d3.csv(this.connectionsUri, callback);
+    private getConnectionMinMaxCallback(callback) {
+        return function (error, connections: Connection[]): void {
+            if (error !== null) {
+                callback(error, null)
+            } else {
+                callback(error, DataProvider.minMaxFromConnections(connections));
+            }
+        }
     }
 
-    private processDataCallback(callback, threshold: number): ComputedConnection[] {
+    getConnectionsWithPositions(callback, threshold: number[]) {
+        queue.queue()
+            .defer(d3.csv, this.connectionsUri)
+            .defer(d3.csv, this.positionsUri)
+            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
+    }
+
+    private getConnectionsWithPositionsCallback(callback, threshold: number[]) {
+
+        return function (error, connections: Connection[], positions: CountryPosition[]): void {
+            if (error !== null) {
+                callback(error, null)
+            } else {
+                callback(error, processData(connections, positions));
+            }
+        };
 
         function processData(connections: Connection[], positions: CountryPosition[]): ComputedConnection[] {
-            return scaleThickness(joinConnectionsWithPositions(connections, positions));
+            var filteredConnections = filterConnections(connections);
+            var minMax = DataProvider.minMaxFromConnections(filteredConnections);
+            return addStrokeWidth(minMax, joinConnectionsWithPositions(filteredConnections, positions));
         }
 
-        function scaleThickness(connections: JoinedConnection[]): ComputedConnection[] {
-            var thicknesses: number[] = Enumerable.from(connections)
-                .select("Number($.value)")
-                .toArray();
-            var scale = ScaleFactory.newLinearFromValues(thicknesses).range([1.5, 5.0]);
-            console.log(scale(30000));
-            console.log(thicknesses);
+        function addStrokeWidth(minMax: MinMax, connections: JoinedConnection[]): ComputedConnection[] {
+            var scale = d3.scale.linear()
+                .domain(minMax)
+                .range([1.5, 7.0]);
 
             return Enumerable.from(connections)
                 .select(function (connection) {
                     return {
                         origin: connection.origin,
                         destination: connection.destination,
-                        strokeWidth: scale(Number(connection.value)),
+                        strokeWidth: scale(connection.value),
                         value: connection.value
                     };
                 })
+                .toArray();
+        }
+
+        function filterConnections(connections: Connection[]): Connection[] {
+            return Enumerable.from(connections)
+                .where("$.value >= " + threshold[0])
+                .where("$.value <= " + threshold[1])
                 .toArray();
         }
 
@@ -73,7 +96,7 @@ class DataProvider {
                         return {
                             origin,
                             countryTo: connection.countryTo,
-                            value: connection.value
+                            value: Number(connection.value),
                         };
                     }
                 )
@@ -89,17 +112,15 @@ class DataProvider {
                         };
                     }
                 )
-                .where("$.value > " + threshold)
                 .toArray();
         }
+    }
 
-        return function (error, connections: Connection[], positions: CountryPosition[]) {
-            if (error !== null) {
-                callback(error, null)
-            } else {
-                callback(error, processData(connections, positions));
-            }
-        }
+    private static minMaxFromConnections(connections): MinMax {
+        var values: number[] = Enumerable.from(connections)
+            .select("Number($.value)")
+            .toArray();
+        return [d3.min(values), d3.max(values)];
     }
 
 
@@ -120,7 +141,7 @@ interface CountryPosition {
 interface JoinedConnection {
     origin: CountryPosition;
     destination: CountryPosition;
-    value: string;
+    value: number;
 }
 
 interface ComputedConnection {
@@ -130,3 +151,12 @@ interface ComputedConnection {
     value: number;
 }
 
+/**
+ * First element is min, second is max.
+ */
+type MinMax = number[]
+
+interface ComputedModel {
+    connections: ComputedConnection[];
+    minMax: MinMax
+}
