@@ -25,6 +25,10 @@
 /bower_components/nouislider/*
 !/bower_components/nouislider/distribute
 
+!/bower_components/screenfull
+/bower_components/screenfull/*
+!/bower_components/screenfull/dist
+
 !/bower_components/datamaps
 /bower_components/datamaps/*
 !/bower_components/datamaps/dist

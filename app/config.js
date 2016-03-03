@@ -8,6 +8,7 @@ requirejs.config({
         "linqjs": "../bower_components/linqjs/linq",
         "noUiSlider": "../bower_components/nouislider/distribute/nouislider",
         "queue": "../bower_components/d3-queue/d3-queue",
+        "screenfull": "../bower_components/screenfull/dist/screenfull",
         "topojson": "../bower_components/topojson/topojson",
     },
     shim: {
