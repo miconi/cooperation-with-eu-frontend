@@ -1,6 +1,4 @@
 requirejs.config({
-    // make components more sensible
-    // expose jquery
     paths: {
         "components": "../bower_components",
         "d3": "../bower_components/d3/d3",
