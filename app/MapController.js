@@ -1,6 +1,7 @@
 ///<reference path="../typings/main.d.ts" />
 var Datamap = require('datamaps');
 var MapController = (function () {
+    //------------------------ CONSTRUCTORS --------------------------
     function MapController() {
         this.map = new Datamap({
             element: document.getElementById("basic"),
@@ -11,6 +12,7 @@ var MapController = (function () {
         });
         this.initZoom();
     }
+    //------------------------ LOGIC --------------------------
     MapController.prototype.updateMap = function (error, connections) {
         if (error === null) {
             console.log(connections);
@@ -29,6 +31,7 @@ var MapController = (function () {
             });
         }
     };
+    //------------------------ PRIVATE --------------------------
     /**
      * Zooming & dragging bahaviour, based on
      * https://bl.ocks.org/mbostock/6123708

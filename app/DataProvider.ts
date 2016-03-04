@@ -10,6 +10,41 @@
 var queue = require('queue');
 var Enumerable = require('linqjs');
 
+interface Connection {
+    countryFrom: string;
+    countryTo: string;
+    value: string;
+}
+
+interface CountryPosition {
+    country: string;
+    latitude: string;
+    longitude: string;
+}
+
+interface JoinedConnection {
+    origin: CountryPosition;
+    destination: CountryPosition;
+    value: number;
+}
+
+interface ComputedConnection {
+    origin: CountryPosition;
+    destination: CountryPosition;
+    strokeWidth: number;
+    value: number;
+}
+
+/**
+ * First element is min, second is max.
+ */
+type MinMax = number[]
+
+interface ComputedModel {
+    connections: ComputedConnection[];
+    minMax: MinMax
+}
+
 /**
  * Creates an instance of DataProvider.
  *
@@ -20,14 +55,29 @@ var Enumerable = require('linqjs');
  * @param {string} graphByIdUri
  */
 class DataProvider {
-    constructor(private connectionsUri: string, private positionsUri: string) {
+
+    //------------------------ CONSTRUCTORS --------------------------
+
+    constructor(private connectionsUri: string,
+                private positionsUri: string) {
     }
+
+    //------------------------ LOGIC --------------------------
 
     getConnectionMinMax(callback) {
         queue.queue()
             .defer(d3.csv, this.connectionsUri)
             .await(this.getConnectionMinMaxCallback(callback));
     }
+
+    getConnectionsWithPositions(callback, threshold: number[]) {
+        queue.queue()
+            .defer(d3.csv, this.connectionsUri)
+            .defer(d3.csv, this.positionsUri)
+            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
+    }
+
+    //------------------------ PRIVATE --------------------------
 
     private getConnectionMinMaxCallback(callback) {
         return function (error, connections: Connection[]): void {
@@ -37,13 +87,6 @@ class DataProvider {
                 callback(error, DataProvider.minMaxFromConnections(connections));
             }
         }
-    }
-
-    getConnectionsWithPositions(callback, threshold: number[]) {
-        queue.queue()
-            .defer(d3.csv, this.connectionsUri)
-            .defer(d3.csv, this.positionsUri)
-            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
     }
 
     private getConnectionsWithPositionsCallback(callback, threshold: number[]) {
@@ -126,37 +169,3 @@ class DataProvider {
 
 }
 
-interface Connection {
-    countryFrom: string;
-    countryTo: string;
-    value: string;
-}
-
-interface CountryPosition {
-    country: string;
-    latitude: string;
-    longitude: string;
-}
-
-interface JoinedConnection {
-    origin: CountryPosition;
-    destination: CountryPosition;
-    value: number;
-}
-
-interface ComputedConnection {
-    origin: CountryPosition;
-    destination: CountryPosition;
-    strokeWidth: number;
-    value: number;
-}
-
-/**
- * First element is min, second is max.
- */
-type MinMax = number[]
-
-interface ComputedModel {
-    connections: ComputedConnection[];
-    minMax: MinMax
-}

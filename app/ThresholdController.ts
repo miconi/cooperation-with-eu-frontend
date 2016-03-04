@@ -2,11 +2,15 @@ var noUiSlider = require('noUiSlider');
 
 class ThresholdController {
 
+    //------------------------ CONSTRUCTORS --------------------------
+
     constructor(private dataProvider: DataProvider,
                 private mapController: MapController) {
 
         dataProvider.getConnectionMinMax(this.initSlider.bind(this));
     }
+
+    //------------------------ PRIVATE --------------------------
 
     private thresholdSlider = document.getElementById('threshold-slider');
 
@@ -37,7 +41,7 @@ class ThresholdController {
     }
 
     private changeThreshold() {
-        var threshold = this.thresholdSlider.noUiSlider.get()
+        var threshold = this.thresholdSlider.noUiSlider.get();
         this.dataProvider.getConnectionsWithPositions(
             this.mapController.updateMap.bind(this.mapController),
             threshold);

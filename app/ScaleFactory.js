@@ -5,6 +5,7 @@
  */
 var ScaleFactory;
 (function (ScaleFactory) {
+    //------------------------ LOGIC --------------------------
     /**
      * Create a linear d3 scale with the domain constructed from the values
      * passed.

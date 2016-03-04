@@ -1,8 +1,10 @@
 var noUiSlider = require('noUiSlider');
 var ThresholdController = (function () {
+    //------------------------ CONSTRUCTORS --------------------------
     function ThresholdController(dataProvider, mapController) {
         this.dataProvider = dataProvider;
         this.mapController = mapController;
+        //------------------------ PRIVATE --------------------------
         this.thresholdSlider = document.getElementById('threshold-slider');
         dataProvider.getConnectionMinMax(this.initSlider.bind(this));
     }

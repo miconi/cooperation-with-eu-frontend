@@ -17,15 +17,24 @@ var Enumerable = require('linqjs');
  * @param {string} graphByIdUri
  */
 var DataProvider = (function () {
+    //------------------------ CONSTRUCTORS --------------------------
     function DataProvider(connectionsUri, positionsUri) {
         this.connectionsUri = connectionsUri;
         this.positionsUri = positionsUri;
     }
+    //------------------------ LOGIC --------------------------
     DataProvider.prototype.getConnectionMinMax = function (callback) {
         queue.queue()
             .defer(d3.csv, this.connectionsUri)
             .await(this.getConnectionMinMaxCallback(callback));
     };
+    DataProvider.prototype.getConnectionsWithPositions = function (callback, threshold) {
+        queue.queue()
+            .defer(d3.csv, this.connectionsUri)
+            .defer(d3.csv, this.positionsUri)
+            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
+    };
+    //------------------------ PRIVATE --------------------------
     DataProvider.prototype.getConnectionMinMaxCallback = function (callback) {
         return function (error, connections) {
             if (error !== null) {
@@ -35,12 +44,6 @@ var DataProvider = (function () {
                 callback(error, DataProvider.minMaxFromConnections(connections));
             }
         };
-    };
-    DataProvider.prototype.getConnectionsWithPositions = function (callback, threshold) {
-        queue.queue()
-            .defer(d3.csv, this.connectionsUri)
-            .defer(d3.csv, this.positionsUri)
-            .await(this.getConnectionsWithPositionsCallback(callback, threshold));
     };
     DataProvider.prototype.getConnectionsWithPositionsCallback = function (callback, threshold) {
         return function (error, connections, positions) {

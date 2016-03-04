@@ -7,6 +7,9 @@
 namespace ScaleFactory {
 
     import Numeric = d3.Numeric;
+
+    //------------------------ LOGIC --------------------------
+
     /**
      * Create a linear d3 scale with the domain constructed from the values
      * passed.

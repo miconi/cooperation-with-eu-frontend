@@ -21,8 +21,6 @@ requirejs(
         $('#fullscreen-button').click(function () {
             if (screenfull.enabled) {
                 screenfull.toggle();
-            } else {
             }
         });
-        
     });

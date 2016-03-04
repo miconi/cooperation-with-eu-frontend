@@ -4,10 +4,6 @@ var Datamap = require('datamaps');
 
 class MapController {
 
-    constructor() {
-        this.initZoom();
-    }
-
     private map = new Datamap({
         element: document.getElementById("basic"),
         projection: 'mercator',
@@ -17,6 +13,13 @@ class MapController {
         }
     });
 
+    //------------------------ CONSTRUCTORS --------------------------
+
+    constructor() {
+        this.initZoom();
+    }
+
+    //------------------------ LOGIC --------------------------
 
     updateMap(error, connections) {
         if (error === null) {
@@ -36,6 +39,8 @@ class MapController {
                 });
         }
     }
+
+    //------------------------ PRIVATE --------------------------
 
     /**
      * Zooming & dragging bahaviour, based on
