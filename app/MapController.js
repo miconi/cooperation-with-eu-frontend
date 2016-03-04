@@ -16,7 +16,7 @@ var MapController = (function () {
     MapController.prototype.updateMap = function (error, connections) {
         if (error === null) {
             console.log(connections);
-            this.map.arc(connections, { animationSpeed: 0, arcSharpness: 1.0 });
+            this.map.arc(connections, { arcSharpness: 1.0 });
             //map.updateChoropleth({
             //    US: { fillKey: 'authorHasTraveledTo' }
             //});
@@ -27,6 +27,9 @@ var MapController = (function () {
             })
                 .style('stroke-opacity', function (d) {
                 return d.strokeOpacity;
+            })
+                .style('stroke-width', function (d) {
+                return d.strokeWidth;
             })
                 .on("mouseover", function (d) {
                 console.log(d);

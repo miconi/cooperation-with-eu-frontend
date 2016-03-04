@@ -31,6 +31,7 @@ interface JoinedConnection {
 interface ComputedConnection {
     origin: CountryPosition;
     destination: CountryPosition;
+    strokeOpacity: number;
     strokeWidth: number;
     value: number;
 }
@@ -108,7 +109,7 @@ class DataProvider {
         function addStroke(minMax: MinMax, connections: JoinedConnection[]): ComputedConnection[] {
             var widthScale = d3.scale.linear()
                 .domain(minMax)
-                .range([1.5, 7.0]);
+                .range([1.5, 6.0]);
 
             var opacityScale = d3.scale.linear()
                 .domain(minMax)

@@ -62,7 +62,7 @@ var DataProvider = (function () {
         function addStroke(minMax, connections) {
             var widthScale = d3.scale.linear()
                 .domain(minMax)
-                .range([1.5, 7.0]);
+                .range([1.5, 6.0]);
             var opacityScale = d3.scale.linear()
                 .domain(minMax)
                 .range([0.3, 1.0]);

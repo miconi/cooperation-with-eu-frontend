@@ -339,7 +339,7 @@
       options = defaultOptions.arcConfig;
     }
 
-    var arcs = layer.selectAll('path.datamaps-arc').data( data, JSON.stringify );
+    var arcs = layer.selectAll('path.datamaps-arc').data( data, function(d) { return d.origin.country + d.destination.country; } );
 
     var path = d3.geo.path()
         .projection(self.projection);
