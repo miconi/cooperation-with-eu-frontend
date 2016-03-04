@@ -57,18 +57,22 @@ var DataProvider = (function () {
         function processData(connections, positions) {
             var filteredConnections = filterConnections(connections);
             var minMax = DataProvider.minMaxFromConnections(filteredConnections);
-            return addStrokeWidth(minMax, joinConnectionsWithPositions(filteredConnections, positions));
+            return addStroke(minMax, joinConnectionsWithPositions(filteredConnections, positions));
         }
-        function addStrokeWidth(minMax, connections) {
-            var scale = d3.scale.linear()
+        function addStroke(minMax, connections) {
+            var widthScale = d3.scale.linear()
                 .domain(minMax)
                 .range([1.5, 7.0]);
+            var opacityScale = d3.scale.linear()
+                .domain(minMax)
+                .range([0.3, 1.0]);
             return Enumerable.from(connections)
                 .select(function (connection) {
                 return {
                     origin: connection.origin,
                     destination: connection.destination,
-                    strokeWidth: scale(connection.value),
+                    strokeWidth: widthScale(connection.value),
+                    strokeOpacity: opacityScale(connection.value),
                     value: connection.value
                 };
             })

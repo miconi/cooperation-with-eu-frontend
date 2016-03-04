@@ -30,8 +30,11 @@ class MapController {
             //});
             var arcs = d3.selectAll('path.datamaps-arc');
             arcs
-                .style('stroke', function (datum) {
+                .style('stroke', function () {
                     return null;
+                })
+                .style('stroke-opacity', function (d) {
+                    return d.strokeOpacity;
                 })
                 .on("mouseover", function (d) {
                     console.log(d);
