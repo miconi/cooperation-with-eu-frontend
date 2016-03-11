@@ -4,24 +4,30 @@ var Datamap = require('datamaps');
 
 class MapController {
 
-    private map = new Datamap({
-        element: document.getElementById("basic"),
-        projection: 'mercator',
-        fills: {
-            defaultFill: "#b4dda8"
-            //authorHasTraveledTo: "#fa0fa0"
-        }
-    });
+    private map;
 
     //------------------------ CONSTRUCTORS --------------------------
 
     constructor() {
+
+        document.getElementById("basic").innerHTML = "";
+
+        this.map = new Datamap({
+            element: document.getElementById("basic"),
+            projection: 'mercator',
+            fills: {
+                defaultFill: "#b4dda8"
+                //authorHasTraveledTo: "#fa0fa0"
+            }
+        });
+
         this.initZoom();
     }
 
     //------------------------ LOGIC --------------------------
 
     updateMap(error, connections) {
+        console.log("updateMap");
         if (error === null) {
             console.log(connections);
             this.map.arc(connections, {arcSharpness: 1.0});
@@ -36,7 +42,7 @@ class MapController {
                 .style('stroke-opacity', function (d) {
                     return d.strokeOpacity;
                 })
-                .style('stroke-width', function(d) {
+                .style('stroke-width', function (d) {
                     return d.strokeWidth;
                 })
                 .on("mouseover", function (d) {

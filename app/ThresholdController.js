@@ -4,10 +4,14 @@ var ThresholdController = (function () {
     function ThresholdController(dataProvider, mapController) {
         this.dataProvider = dataProvider;
         this.mapController = mapController;
-        //------------------------ PRIVATE --------------------------
         this.thresholdSlider = document.getElementById('threshold-slider');
         dataProvider.getConnectionMinMax(this.initSlider.bind(this));
     }
+    ThresholdController.prototype.setMapController = function (mapController) {
+        this.mapController = mapController;
+        this.onThresholdUpdate();
+    };
+    //------------------------ PRIVATE --------------------------
     ThresholdController.prototype.initSlider = function (error, minMax) {
         if (error === null) {
             var rangeMin = minMax[0];
@@ -24,10 +28,10 @@ var ThresholdController = (function () {
                     'max': rangeMax
                 }
             });
-            this.thresholdSlider.noUiSlider.on('update', this.changeThreshold.bind(this));
+            this.thresholdSlider.noUiSlider.on('update', this.onThresholdUpdate.bind(this));
         }
     };
-    ThresholdController.prototype.changeThreshold = function () {
+    ThresholdController.prototype.onThresholdUpdate = function () {
         var threshold = this.thresholdSlider.noUiSlider.get();
         this.dataProvider.getConnectionsWithPositions(this.mapController.updateMap.bind(this.mapController), threshold);
     };

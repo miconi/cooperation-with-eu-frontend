@@ -3,6 +3,7 @@ var Datamap = require('datamaps');
 var MapController = (function () {
     //------------------------ CONSTRUCTORS --------------------------
     function MapController() {
+        document.getElementById("basic").innerHTML = "";
         this.map = new Datamap({
             element: document.getElementById("basic"),
             projection: 'mercator',
@@ -14,6 +15,7 @@ var MapController = (function () {
     }
     //------------------------ LOGIC --------------------------
     MapController.prototype.updateMap = function (error, connections) {
+        console.log("updateMap");
         if (error === null) {
             console.log(connections);
             this.map.arc(connections, { arcSharpness: 1.0 });
