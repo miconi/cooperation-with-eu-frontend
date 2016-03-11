@@ -2,8 +2,10 @@
 <head>
     <title>Scholarly Cooperation</title>
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bower_components/nouislider/distribute/nouislider.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="bower_components/nouislider/distribute/nouislider.min.css"/>
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
     <script data-main="app/config"
             src="bower_components/requirejs/require.js"></script>
@@ -11,18 +13,27 @@
 <body>
 <div class="header-gradient"></div>
 <h1>Scholarly <strong>Cooperation</strong></h1>
+<div class="logos">
+    <a href="http://icm.edu.pl">
+        <img src="img/logos/icm.png"/>
+    </a>
+    <a href="http://openaire.eu">
+        <img src="img/logos/openaire.png"/>
+    </a>
+</div>
 <div class="toolbox">
     <h4>Threshold</h4>
     <div id="threshold-slider"></div>
     <div>
         <h4>Connection info:</h4>
         <p>
-        <span id="connectionInfo">hover on a connection to get info.</span></p>
+            <span id="connectionInfo">hover on a connection to get info.</span>
+        </p>
     </div>
-        <button value="Full-screen mode" id="fullscreen-button"
-                class="btn btn-default" type="button">
-            <span class="glyphicon glyphicon-fullscreen"></span>
-        </button>
+    <button value="Full-screen mode" id="fullscreen-button"
+            class="btn btn-default" type="button">
+        <span class="glyphicon glyphicon-fullscreen"></span>
+    </button>
 </div>
 <div id="basic" class="map"></div>
 </body>

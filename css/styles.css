@@ -13,11 +13,23 @@ body {
     font-weight: 400;
 }
 
+div.logos {
+    position: fixed;
+    left: 7%;
+    top: 35px;
+
+}
+
+div.logos img {
+    height: 65px;
+    margin-right: 20px;
+}
+
 div.toolbox {
     position: fixed;
-    width: 190px;
+    width: 200px;
     left: 7%;
-    top: 3em;
+    top: 180px;
     background-color: #fff;
 
 }
