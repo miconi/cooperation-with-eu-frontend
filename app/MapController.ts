@@ -38,9 +38,7 @@ class MapController {
     //------------------------ LOGIC --------------------------
 
     updateMap(error, connections) {
-        console.log("updateMap");
         if (error === null) {
-            console.log(connections);
             this.map.arc(connections, {arcSharpness: 1.0});
             //map.updateChoropleth({
             //    US: { fillKey: 'authorHasTraveledTo' }

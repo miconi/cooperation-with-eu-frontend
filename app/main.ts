@@ -27,7 +27,7 @@ $('#fullscreen-button').click(() => {
     if (screenfull.enabled) {
         screenfull.toggle();
 
-        setTimeout(function () {
+        setTimeout(() => {
             mapController = new MapController();
             thresholdController.setMapController(mapController);
         }, 500);
