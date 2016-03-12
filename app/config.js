@@ -1,3 +1,10 @@
+/**
+ * @fileOverview Config file.
+ *
+ * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
+ */
+
+
 require.config({
     paths: {
         "components": "../bower_components",
