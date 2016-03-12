@@ -1,15 +1,12 @@
-requirejs(
+require(
     [
         "require",
-        "linqjs",
-        "jquery",
-        "datamaps",
-        "noUiSlider",
-        "screenfull",
         "DataProvider",
         "MapController",
-        "ThresholdController"
-    ], function () {
+        "ThresholdController",
+        "jquery",
+        "screenfull",
+    ], function (require, DataProvider, MapController, ThresholdController) {
 
         var dataProvider = new DataProvider(
             "data/connections.csv",

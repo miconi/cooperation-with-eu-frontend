@@ -4,11 +4,14 @@
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
 
-///<reference path="../typings/main.d.ts" />
-///<reference path="ScaleFactory.ts"/>
 
-var queue = require('queue');
-var Enumerable = require('linqjs');
+///<reference path="../typings/browser.d.ts" />
+
+import queue = require('queue');
+import Enumerable = require('linqjs');
+
+export = DataProvider;
+
 
 interface Connection {
     countryFrom: string;
@@ -35,6 +38,7 @@ interface ComputedConnection {
     strokeWidth: number;
     value: number;
 }
+
 
 /**
  * First element is min, second is max.

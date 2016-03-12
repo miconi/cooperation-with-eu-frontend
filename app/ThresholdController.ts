@@ -1,4 +1,19 @@
-var noUiSlider = require('noUiSlider');
+/**
+ * @fileOverview ThresholdController class.
+ *
+ * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
+ */
+
+
+///<reference path="../typings/browser.d.ts" />
+
+import noUiSlider = require('noUiSlider');
+
+import DataProvider = require("./DataProvider");
+import MapController = require("./MapController");
+
+export = ThresholdController;
+
 
 class ThresholdController {
 

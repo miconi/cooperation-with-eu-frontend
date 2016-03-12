@@ -4,6 +4,14 @@
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
 
+
+///<reference path="../typings/browser.d.ts" />
+
+import d3 = require('d3')
+
+export = ScaleFactory;
+
+
 namespace ScaleFactory {
 
     import Numeric = d3.Numeric;
@@ -19,6 +27,6 @@ namespace ScaleFactory {
      */
     export function newLinearFromValues(values: number[]): d3.scale.Linear<number, any> {
         return d3.scale.linear()
-        .domain([d3.min(values), d3.max(values)]);
+            .domain([d3.min(values), d3.max(values)]);
     }
 }

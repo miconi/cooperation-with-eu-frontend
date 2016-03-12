@@ -54,7 +54,7 @@ declare module linq {
         selectMany(collectionSelector: ($, i: number) => any[], resultSelector?: ($, item) => any): Enumerable<any>;
         selectMany(collectionSelector: ($, i: number) => Enumerable<any>, resultSelector?: ($, item) => any): Enumerable<any>;
         selectMany(collectionSelector: string, resultSelector?: string): Enumerable<any>;
-        where(predicate: ($ : T, i: number) => boolean): Enumerable<T>;
+        where(predicate: ($: T, i: number) => boolean): Enumerable<T>;
         where(predicate: string): Enumerable<any>;
         ofType(type: Function): Enumerable<any>;
         zip(second: any[], selector: (v1, v2, i: number) => any): Enumerable<any>;
@@ -71,7 +71,7 @@ declare module linq {
         groupJoin(inner: Enumerable<any>, outerKeySelector: (v1) => any, innerKeySelector: (v1) => any, resultSelector: (v1, v2: Enumerable<any>) => any, compareSelector?: (v) => any): Enumerable<any>;
         groupJoin(inner: Enumerable<any>, outerKeySelector: string, innerKeySelector: string, resultSelector: string, compareSelector?: string): Enumerable<any>;
         //Set Methods
-        all(predicate: ($ : T) => boolean): boolean;
+        all(predicate: ($: T) => boolean): boolean;
         all(predicate: string): boolean;
         any(predicate?: ($: T) => boolean): boolean;
         any(predicate?: string): boolean;
@@ -183,9 +183,9 @@ declare module linq {
         toString(separator?: string, selector?: ($) =>any): string;
         toString(separator?: string, selector?: string): string;
         //Action Methods
-        do(action: ($, i: number) => void ): Enumerable<any>;
+        do(action: ($, i: number) => void): Enumerable<any>;
         do(action: string): Enumerable<any>;
-        forEach(action: ($: T, i: number) => void ): void;
+        forEach(action: ($: T, i: number) => void): void;
         forEach(func: ($: T, i: number) => boolean): void;
         forEach(action_func: string): void;
         write(separator?: string, selector?: ($) =>any): void;
@@ -197,9 +197,9 @@ declare module linq {
         share(): Enumerable<any>;
         memoizeAll(): Enumerable<any>;
         //Error Handling Methods
-        catch(handler: (error: Error) => void ): Enumerable<any>;
+        catch(handler: (error: Error) => void): Enumerable<any>;
         catch(handler: string): Enumerable<any>;
-        finally(finallyAction: () => void ): Enumerable<any>;
+        finally(finallyAction: () => void): Enumerable<any>;
         finally(finallyAction: string): Enumerable<any>;
         //For Debug Methods
         trace(message?: string, selector?: ($) =>any): Enumerable<any>;

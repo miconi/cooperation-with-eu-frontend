@@ -1,6 +1,16 @@
-///<reference path="../typings/main.d.ts" />
+/**
+ * @fileOverview MapController class.
+ *
+ * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
+ */
 
-var Datamap = require('datamaps');
+
+///<reference path="../typings/browser.d.ts" />
+
+import Datamap = require('datamaps');
+
+export = MapController;
+
 
 class MapController {
 

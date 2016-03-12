@@ -175,3 +175,7 @@ declare module noUiSlider {
         noUiSlider: noUiSlider
     }
 }
+
+declare module 'noUiSlider' {
+    export = noUiSlider;
+}
