@@ -7,6 +7,7 @@
 
 ///<reference path="../typings/browser.d.ts" />
 
+import $ = require('jquery');
 import noUiSlider = require('noUiSlider');
 
 import DataProvider = require("./DataProvider");
@@ -17,7 +18,7 @@ export = ThresholdController;
 
 class ThresholdController {
 
-    private thresholdSlider = document.getElementById('threshold-slider');
+    private thresholdSlider = $('#threshold-slider')[0];
 
     //------------------------ CONSTRUCTORS --------------------------
 

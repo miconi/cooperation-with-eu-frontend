@@ -3,13 +3,13 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'noUiSlider'], function (require, exports, noUiSlider) {
+define(["require", "exports", 'jquery', 'noUiSlider'], function (require, exports, $, noUiSlider) {
     var ThresholdController = (function () {
         //------------------------ CONSTRUCTORS --------------------------
         function ThresholdController(dataProvider, mapController) {
             this.dataProvider = dataProvider;
             this.mapController = mapController;
-            this.thresholdSlider = document.getElementById('threshold-slider');
+            this.thresholdSlider = $('#threshold-slider')[0];
             dataProvider.getConnectionMinMax(this.initSlider.bind(this));
         }
         ThresholdController.prototype.setMapController = function (mapController) {

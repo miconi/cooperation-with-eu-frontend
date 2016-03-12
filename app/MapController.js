@@ -3,13 +3,13 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'datamaps'], function (require, exports, Datamap) {
+define(["require", "exports", 'jquery', 'datamaps'], function (require, exports, $, Datamap) {
     var MapController = (function () {
         //------------------------ CONSTRUCTORS --------------------------
         function MapController() {
-            document.getElementById("basic").innerHTML = "";
+            $('#map').empty();
             this.map = new Datamap({
-                element: document.getElementById("basic"),
+                element: $('#map')[0],
                 projection: 'mercator',
                 fills: {
                     defaultFill: "#b4dda8"

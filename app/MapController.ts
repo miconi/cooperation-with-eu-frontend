@@ -7,6 +7,7 @@
 
 ///<reference path="../typings/browser.d.ts" />
 
+import $ = require('jquery');
 import Datamap = require('datamaps');
 
 export = MapController;
@@ -20,10 +21,10 @@ class MapController {
 
     constructor() {
 
-        document.getElementById("basic").innerHTML = "";
+        $('#map').empty();
 
         this.map = new Datamap({
-            element: document.getElementById("basic"),
+            element: $('#map')[0],
             projection: 'mercator',
             fills: {
                 defaultFill: "#b4dda8"
