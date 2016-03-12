@@ -13,6 +13,7 @@ var ThresholdController = (function () {
     };
     //------------------------ PRIVATE --------------------------
     ThresholdController.prototype.initSlider = function (error, minMax) {
+        var _this = this;
         if (error === null) {
             var rangeMin = minMax[0];
             var rangeMax = minMax[1];
@@ -28,7 +29,7 @@ var ThresholdController = (function () {
                     'max': rangeMax
                 }
             });
-            this.thresholdSlider.noUiSlider.on('update', this.onThresholdUpdate.bind(this));
+            this.thresholdSlider.noUiSlider.on('update', function () { return _this.onThresholdUpdate(); });
         }
     };
     ThresholdController.prototype.onThresholdUpdate = function () {

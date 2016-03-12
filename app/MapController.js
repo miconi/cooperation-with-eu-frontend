@@ -24,19 +24,10 @@ var MapController = (function () {
             //});
             var arcs = d3.selectAll('path.datamaps-arc');
             arcs
-                .style('stroke', function () {
-                return null;
-            })
-                .style('stroke-opacity', function (d) {
-                return d.strokeOpacity;
-            })
-                .style('stroke-width', function (d) {
-                return d.strokeWidth;
-            })
-                .on("mouseover", function (d) {
-                console.log(d);
-                $('#connectionInfo').text(d.origin.country + " — " + d.destination.country + ": " + d.value + " co-authored papers");
-            });
+                .style('stroke', function () { return null; })
+                .style('stroke-opacity', function (d) { return d.strokeOpacity; })
+                .style('stroke-width', function (d) { return d.strokeWidth; })
+                .on("mouseover", function (d) { return $('#connectionInfo').text(d.origin.country + " — " + d.destination.country + ": " + d.value + " co-authored papers"); });
         }
     };
     //------------------------ PRIVATE --------------------------
@@ -49,9 +40,7 @@ var MapController = (function () {
             .scaleExtent([1, 10])
             .on("zoom", zoomed);
         var drag = d3.behavior.drag()
-            .origin(function (d) {
-            return d;
-        })
+            .origin(function (d) { return d; })
             .on("dragstart", dragstarted)
             .on("drag", dragged)
             .on("dragend", dragended);

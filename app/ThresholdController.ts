@@ -40,7 +40,7 @@ class ThresholdController {
 
             this.thresholdSlider.noUiSlider.on(
                 'update',
-                this.onThresholdUpdate.bind(this)
+                () => this.onThresholdUpdate()
             );
         }
     }
