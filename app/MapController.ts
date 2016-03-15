@@ -40,16 +40,6 @@ class MapController {
     updateMap(error, connections) {
         if (error === null) {
             this.map.arc(connections, {arcSharpness: 1.0});
-            //map.updateChoropleth({
-            //    US: { fillKey: 'authorHasTraveledTo' }
-            //});
-            var arcs = d3.selectAll('path.datamaps-arc');
-            arcs
-                .style('stroke', () => null)
-                .style('stroke-opacity', (d) => d.strokeOpacity)
-                .style('stroke-width', (d) => d.strokeWidth)
-                .on("mouseover", (d) => $('#connectionInfo').text(d.origin.country + " — " + d.destination.country + ": " + d.value + " co-authored papers"))
-            ;
         }
     }
 
@@ -73,7 +63,7 @@ class MapController {
         d3.selectAll("svg").call(zoom);
 
         function zoomed() {
-            d3.selectAll("svg g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            d3.selectAll("svg > g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
         }
 
         function dragstarted(d) {

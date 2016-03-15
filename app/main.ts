@@ -15,6 +15,8 @@ import MapController = require("./MapController");
 import ThresholdController = require("./ThresholdController");
 
 
+//------------------------ LOGIC --------------------------
+
 var dataProvider = new DataProvider(
     "data/connections.csv",
     "data/positions.csv"

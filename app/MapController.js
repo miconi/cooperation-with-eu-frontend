@@ -21,15 +21,6 @@ define(["require", "exports", 'jquery', 'datamaps'], function (require, exports,
         MapController.prototype.updateMap = function (error, connections) {
             if (error === null) {
                 this.map.arc(connections, { arcSharpness: 1.0 });
-                //map.updateChoropleth({
-                //    US: { fillKey: 'authorHasTraveledTo' }
-                //});
-                var arcs = d3.selectAll('path.datamaps-arc');
-                arcs
-                    .style('stroke', function () { return null; })
-                    .style('stroke-opacity', function (d) { return d.strokeOpacity; })
-                    .style('stroke-width', function (d) { return d.strokeWidth; })
-                    .on("mouseover", function (d) { return $('#connectionInfo').text(d.origin.country + " — " + d.destination.country + ": " + d.value + " co-authored papers"); });
             }
         };
         //------------------------ PRIVATE --------------------------
@@ -48,7 +39,7 @@ define(["require", "exports", 'jquery', 'datamaps'], function (require, exports,
                 .on("dragend", dragended);
             d3.selectAll("svg").call(zoom);
             function zoomed() {
-                d3.selectAll("svg g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+                d3.selectAll("svg > g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
             }
             function dragstarted(d) {
                 d3.event.sourceEvent.stopPropagation();

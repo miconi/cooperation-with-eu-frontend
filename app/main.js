@@ -4,6 +4,7 @@
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
 define(["require", "exports", 'jquery', 'screenfull', "./DataProvider", "./MapController", "./ThresholdController"], function (require, exports, $, screenfull, DataProvider, MapController, ThresholdController) {
+    //------------------------ LOGIC --------------------------
     var dataProvider = new DataProvider("data/connections.csv", "data/positions.csv");
     var mapController = new MapController();
     var thresholdController = new ThresholdController(dataProvider, mapController);
