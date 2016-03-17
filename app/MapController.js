@@ -8,6 +8,8 @@ define(["require", "exports", 'jquery', 'datamaps'], function (require, exports,
         //------------------------ CONSTRUCTORS --------------------------
         function MapController() {
             $('#map').empty();
+            $('#map').width(screen.width);
+            $('#map').height(screen.height);
             this.map = new Datamap({
                 element: $('#map')[0],
                 projection: 'mercator',

@@ -12,10 +12,6 @@ define(["require", "exports", 'jquery', 'screenfull', "./DataProvider", "./MapCo
     $('#fullscreen-button').click(function () {
         if (screenfull.enabled) {
             screenfull.toggle();
-            setTimeout(function () {
-                mapController = new MapController();
-                thresholdController.setMapController(mapController);
-            }, 500);
         }
     });
 });

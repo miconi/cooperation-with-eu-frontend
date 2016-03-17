@@ -12,10 +12,6 @@ define(["require", "exports", 'jquery', 'noUiSlider'], function (require, export
             this.thresholdSlider = $('#threshold-slider')[0];
             dataProvider.getConnectionMinMax(this.initSlider.bind(this));
         }
-        ThresholdController.prototype.setMapController = function (mapController) {
-            this.mapController = mapController;
-            this.onThresholdUpdate();
-        };
         //------------------------ PRIVATE --------------------------
         ThresholdController.prototype.initSlider = function (error, minMax) {
             var _this = this;

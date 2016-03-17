@@ -28,11 +28,6 @@ class ThresholdController {
         dataProvider.getConnectionMinMax(this.initSlider.bind(this));
     }
 
-    public setMapController(mapController: MapController) {
-        this.mapController = mapController;
-        this.onThresholdUpdate();
-    }
-
     //------------------------ PRIVATE --------------------------
 
     private initSlider(error, minMax) {

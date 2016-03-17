@@ -30,11 +30,6 @@ var thresholdController = new ThresholdController(dataProvider, mapController);
 $('#fullscreen-button').click(() => {
     if (screenfull.enabled) {
         screenfull.toggle();
-
-        setTimeout(() => {
-            mapController = new MapController();
-            thresholdController.setMapController(mapController);
-        }, 500);
     }
 });
 
