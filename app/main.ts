@@ -10,6 +10,8 @@
 import $ = require('jquery');
 import screenfull = require('screenfull');
 
+screenfull = window.screenfull; // something is wrong with the screenfull.js module definition
+
 import DataProvider = require("./DataProvider");
 import MapController = require("./MapController");
 import ThresholdController = require("./ThresholdController");

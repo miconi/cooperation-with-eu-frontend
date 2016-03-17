@@ -4,3 +4,4 @@
 /// <reference path="main/ambient/linq/linq.d.ts" />
 /// <reference path="main/ambient/nouislider/nouislider.d.ts" />
 /// <reference path="main/ambient/require/require.d.ts" />
+/// <reference path="main/ambient/screenfull/screenfull.d.ts" />
