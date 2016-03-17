@@ -16,7 +16,7 @@ require.config({
         "queue": "../bower_components/d3-queue/d3-queue",
         "screenfull": "../bower_components/screenfull/dist/screenfull",
         "topojson": "../bower_components/topojson/topojson",
-    },
+    }
 });
 
 require(['main']);
