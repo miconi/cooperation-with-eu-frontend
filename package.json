@@ -1,0 +1,26 @@
+{
+  "name": "cooperation-with-eu-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the OpenAIRE Data Mining project: Analysing scholarly cooperation with EU.",
+  "main": "index.html",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "intern": "^3.0.6"
+  },
+  "scripts": {
+    "test": "intern-client config=tests/intern"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miconi/cooperation-with-eu-frontend.git"
+  },
+  "author": "Michał Oniszczuk <m.oniszczuk@icm.edu.pl>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miconi/cooperation-with-eu-frontend/issues"
+  },
+  "homepage": "https://github.com/miconi/cooperation-with-eu-frontend#readme"
+}

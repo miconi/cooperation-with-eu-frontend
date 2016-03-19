@@ -3,7 +3,7 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'queue', 'linqjs'], function (require, exports, queue, Enumerable) {
+define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, exports, d3, queue, Enumerable) {
     /**
      * Creates an instance of DataProvider.
      *

@@ -2,6 +2,7 @@
 /nbproject/project.xml
 /nbproject/project.properties
 /out
+/node_modules
 
 /bower_components/*
 !/bower_components/*/dist

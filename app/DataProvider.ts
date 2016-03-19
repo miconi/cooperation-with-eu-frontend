@@ -7,6 +7,7 @@
 
 ///<reference path="../typings/browser.d.ts" />
 
+import d3 = require('d3');
 import queue = require('queue');
 import Enumerable = require('linqjs');
 
@@ -169,7 +170,7 @@ class DataProvider {
         }
     }
 
-    private static minMaxFromConnections(connections): MinMax {
+    static minMaxFromConnections(connections: Connection[]): MinMax {
         var values: number[] = Enumerable.from(connections)
             .select("Number($.value)")
             .toArray();
