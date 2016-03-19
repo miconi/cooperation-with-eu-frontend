@@ -7,7 +7,7 @@
 
 ///<reference path="../../node_modules/intern/typings/intern/intern.d.ts" />
 
-import registerSuite = require('intern!object');
+import bdd = require("intern!bdd");
 import DataProvider = require("app/DataProvider");
 import should = require("intern/chai!should");
 import expect = require("intern/chai!expect");
@@ -15,12 +15,11 @@ import expect = require("intern/chai!expect");
 
 //------------------------ TESTS --------------------------
 
-registerSuite({
-    name: "DataProvider",
+bdd.describe("DataProvider", () => {
 
-    "#minMaxFromConnections": {
+    bdd.describe("#minMaxFromConnections", () => {
 
-        "should find min & max values"() {
+        bdd.it("should find min & max values", () => {
 
             // given
             var values = [9, 2, 5, 2, 1]
@@ -33,6 +32,8 @@ registerSuite({
 
             // then
             expect(minMax).to.deep.equal([1, 9]);
-        }
-    }
+        });
+
+    });
+
 });

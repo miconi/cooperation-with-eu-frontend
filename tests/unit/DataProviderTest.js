@@ -3,12 +3,11 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'intern!object', "app/DataProvider", "intern/chai!expect"], function (require, exports, registerSuite, DataProvider, expect) {
+define(["require", "exports", "intern!bdd", "app/DataProvider", "intern/chai!expect"], function (require, exports, bdd, DataProvider, expect) {
     //------------------------ TESTS --------------------------
-    registerSuite({
-        name: "DataProvider",
-        "#minMaxFromConnections": {
-            "should find min & max values": function () {
+    bdd.describe("DataProvider", function () {
+        bdd.describe("#minMaxFromConnections", function () {
+            bdd.it("should find min & max values", function () {
                 // given
                 var values = [9, 2, 5, 2, 1]
                     .map(function (n) {
@@ -18,7 +17,7 @@ define(["require", "exports", 'intern!object', "app/DataProvider", "intern/chai!
                 var minMax = DataProvider.minMaxFromConnections(values);
                 // then
                 expect(minMax).to.deep.equal([1, 9]);
-            }
-        }
+            });
+        });
     });
 });
