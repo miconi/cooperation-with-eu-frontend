@@ -352,36 +352,43 @@
         });
 
 
+      // ENTER
       enterGroup
           .append('svg:path')
           .attr('class', 'datamaps-arc-selection-area')
           .attr('d', getPathPositions);
 
-    enterGroup
-        .append('svg:path')
-        .attr('class', 'datamaps-arc')
-        .style('stroke-width', function(datum) {
-            return val(datum.strokeWidth, options.strokeWidth, datum);
-        })
-        .style('stroke-opacity', function (d) { return d.strokeOpacity })
-        .attr('d', getPathPositions)
-        .transition()
-        .delay(100)
-        .style('fill', function (datum) {
-             /*
-              Thank you Jake Archibald, this is awesome.
-              Source: http://jakearchibald.com/2013/animated-line-drawing-svg/
-            */
-            var length = this.getTotalLength();
-            this.style.transition = this.style.WebkitTransition = 'none';
-            this.style.strokeDasharray = length + ' ' + length;
-            this.style.strokeDashoffset = length;
-            this.getBoundingClientRect();
-            this.style.transition = this.style.WebkitTransition = 'stroke-dashoffset ' + val(datum.animationSpeed, options.animationSpeed, datum) + 'ms ease-out';
-            this.style.strokeDashoffset = '0';
-            return 'none';
+      // ENTER
+      enterGroup
+          .append('svg:path')
+          .attr('class', 'datamaps-arc')
+          .attr('d', getPathPositions)
+          .transition()
+          .delay(100)
+          .style('fill', function (datum) {
+              /*
+               Thank you Jake Archibald, this is awesome.
+               Source: http://jakearchibald.com/2013/animated-line-drawing-svg/
+               */
+              var length = this.getTotalLength();
+              this.style.transition = this.style.WebkitTransition = 'none';
+              this.style.strokeDasharray = length + ' ' + length;
+              this.style.strokeDashoffset = length;
+              this.getBoundingClientRect();
+              this.style.transition = this.style.WebkitTransition = 'stroke-dashoffset ' + val(datum.animationSpeed, options.animationSpeed, datum) + 'ms ease-out';
+              this.style.strokeDashoffset = '0';
+              return 'none';
           })
       ;
+
+      // ENTER + UPDATE
+      arcs
+          .style('stroke-width', function(datum) {
+              return val(datum.strokeWidth, options.strokeWidth, datum);
+          })
+          .style('stroke-opacity', function (d) { return d.strokeOpacity })
+      ;
+
       function getPathPositions(datum) {
           var originXY = self.latLngToXY(val(datum.origin.latitude, datum), val(datum.origin.longitude, datum));
           var destXY = self.latLngToXY(val(datum.destination.latitude, datum), val(datum.destination.longitude, datum));
