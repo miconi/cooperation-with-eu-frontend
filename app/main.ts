@@ -27,6 +27,10 @@ var dataProvider = new DataProvider(
 var mapController = new MapController();
 var thresholdController = new ThresholdController(dataProvider, mapController);
 
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
+
 $('#fullscreen-button').click(() => {
     if (screenfull.enabled) {
         screenfull.toggle();

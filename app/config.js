@@ -8,6 +8,7 @@
 require.config({
     paths: {
         "components": "../bower_components",
+        "bootstrap": "../bower_components/bootstrap/dist/js/bootstrap",
         "d3": "../bower_components/d3/d3",
         "datamaps": "../bower_components/datamaps/dist/datamaps.world",
         "jquery": "../bower_components/jquery/dist/jquery",
@@ -16,7 +17,13 @@ require.config({
         "queue": "../bower_components/d3-queue/d3-queue",
         "screenfull": "../bower_components/screenfull/dist/screenfull",
         "topojson": "../bower_components/topojson/topojson",
-    }
+        "wNumb": "../bower_components/wnumb/wNumb"
+    },
+    shim : {
+        "bootstrap" : { "deps" :['jquery'] },
+        "main": {"deps": ['bootstrap']}
+    },
+
 });
 
 require(['main']);

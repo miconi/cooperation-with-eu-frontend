@@ -9,6 +9,9 @@ define(["require", "exports", 'jquery', 'screenfull', "./DataProvider", "./MapCo
     var dataProvider = new DataProvider("data/connections.csv", "data/positions.csv");
     var mapController = new MapController();
     var thresholdController = new ThresholdController(dataProvider, mapController);
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
     $('#fullscreen-button').click(function () {
         if (screenfull.enabled) {
             screenfull.toggle();

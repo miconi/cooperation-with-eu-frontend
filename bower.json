@@ -25,6 +25,7 @@
     "d3-queue": "^2.0.2",
     "linqjs": "^3.0.5",
     "nouislider": "^8.3.0",
-    "screenfull": "^3.0.0"
+    "screenfull": "^3.0.0",
+    "wnumb": "^1.0.2"
   }
 }

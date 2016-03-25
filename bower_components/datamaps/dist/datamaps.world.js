@@ -349,69 +349,73 @@
       .enter()
         .append('svg:g')
         .on("mouseover", function (d) {
-            return $('#connectionInfo').text(d.origin.country + " — " + d.destination.country + ": " + d.value + " co-authored papers");
+            var $this = d3.select(this);
+            self.updatePopup($this, d, options, svg);
+        })
+        .on('mouseout', function ( datum ) {
+            d3.selectAll('.datamaps-hoverover').style('display', 'none');
         });
 
+    // ENTER
+    enterGroup
+        .append('svg:path')
+        .attr('class', 'datamaps-arc-selection-area')
+        .attr('d', getPathPositions)
+    ;
 
-      // ENTER
-      enterGroup
-          .append('svg:path')
-          .attr('class', 'datamaps-arc-selection-area')
-          .attr('d', getPathPositions);
+    // ENTER
+    enterGroup
+      .append('svg:path')
+        .attr('class', 'datamaps-arc')
+        .attr('d', getPathPositions)
+        .transition()
+        .delay(100)
+        .style('fill', function (datum) {
+            /*
+             Thank you Jake Archibald, this is awesome.
+             Source: http://jakearchibald.com/2013/animated-line-drawing-svg/
+             */
+            var length = this.getTotalLength();
+            this.style.transition = this.style.WebkitTransition = 'none';
+            this.style.strokeDasharray = length + ' ' + length;
+            this.style.strokeDashoffset = length;
+            this.getBoundingClientRect();
+            this.style.transition = this.style.WebkitTransition = 'stroke-dashoffset ' + val(datum.animationSpeed, options.animationSpeed, datum) + 'ms ease-out';
+            this.style.strokeDashoffset = '0';
+            return 'none';
+        })
+    ;
 
-      // ENTER
-      enterGroup
-          .append('svg:path')
-          .attr('class', 'datamaps-arc')
-          .attr('d', getPathPositions)
-          .transition()
-          .delay(100)
-          .style('fill', function (datum) {
-              /*
-               Thank you Jake Archibald, this is awesome.
-               Source: http://jakearchibald.com/2013/animated-line-drawing-svg/
-               */
-              var length = this.getTotalLength();
-              this.style.transition = this.style.WebkitTransition = 'none';
-              this.style.strokeDasharray = length + ' ' + length;
-              this.style.strokeDashoffset = length;
-              this.getBoundingClientRect();
-              this.style.transition = this.style.WebkitTransition = 'stroke-dashoffset ' + val(datum.animationSpeed, options.animationSpeed, datum) + 'ms ease-out';
-              this.style.strokeDashoffset = '0';
-              return 'none';
-          })
-      ;
+    // ENTER + UPDATE
+    arcs.select("path.datamaps-arc")
+        .style('stroke-width', function(datum) {
+            return val(datum.strokeWidth, options.strokeWidth, datum);
+        })
+        .style('stroke-opacity', function (d) { return d.strokeOpacity })
+    ;
 
-      // ENTER + UPDATE
-      arcs.select("path.datamaps-arc")
-          .style('stroke-width', function(datum) {
-              return val(datum.strokeWidth, options.strokeWidth, datum);
-          })
-          .style('stroke-opacity', function (d) { return d.strokeOpacity })
-      ;
+    function getPathPositions(datum) {
+        var originXY = self.latLngToXY(val(datum.origin.latitude, datum), val(datum.origin.longitude, datum));
+        var destXY = self.latLngToXY(val(datum.destination.latitude, datum), val(datum.destination.longitude, datum));
+        var midXY = [ (originXY[0] + destXY[0]) / 2, (originXY[1] + destXY[1]) / 2];
+        if (options.greatArc) {
+              // TODO: Move this to inside `if` clause when setting attr `d`
+          var greatArc = d3.geo.greatArc()
+              .source(function(d) { return [val(d.origin.longitude, d), val(d.origin.latitude, d)
+              ]; })
+              .target(function(d) { return [val(d.destination.longitude, d), val(d.destination.latitude,
+                  d)]; });
 
-      function getPathPositions(datum) {
-          var originXY = self.latLngToXY(val(datum.origin.latitude, datum), val(datum.origin.longitude, datum));
-          var destXY = self.latLngToXY(val(datum.destination.latitude, datum), val(datum.destination.longitude, datum));
-          var midXY = [ (originXY[0] + destXY[0]) / 2, (originXY[1] + destXY[1]) / 2];
-          if (options.greatArc) {
-                // TODO: Move this to inside `if` clause when setting attr `d`
-            var greatArc = d3.geo.greatArc()
-                .source(function(d) { return [val(d.origin.longitude, d), val(d.origin.latitude, d)
-                ]; })
-                .target(function(d) { return [val(d.destination.longitude, d), val(d.destination.latitude,
-                    d)]; });
+          return path(greatArc(datum))
+        }
+        var sharpness = val(datum.arcSharpness, options.arcSharpness, datum);
+        return "M" + originXY[0] + ',' + originXY[1] + "S" + (midXY[0] + (50 * sharpness)) + "," + (midXY[1] - (75 * sharpness)) + "," + destXY[0] + "," + destXY[1];
+    }
 
-            return path(greatArc(datum))
-          }
-          var sharpness = val(datum.arcSharpness, options.arcSharpness, datum);
-          return "M" + originXY[0] + ',' + originXY[1] + "S" + (midXY[0] + (50 * sharpness)) + "," + (midXY[1] - (75 * sharpness)) + "," + destXY[0] + "," + destXY[1];
-      }
-
-      arcs.exit()
-      .transition()
-      .style('opacity', 0)
-      .remove();
+    arcs.exit()
+    .transition()
+    .style('opacity', 0)
+    .remove();
   }
 
   function handleLabels ( layer, options ) {
