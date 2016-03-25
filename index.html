@@ -12,6 +12,9 @@
 </head>
 <body>
 <div class="header-gradient"></div>
+<span class="glyphicon glyphicon-fullscreen" id="fullscreen-button"
+      data-toggle="tooltip" data-placement="top"
+      title="Full-screen mode"></span>
 <h1>Scholarly <strong>Cooperation</strong></h1>
 <div class="logos">
     <a href="http://icm.edu.pl">
@@ -21,19 +24,6 @@
         <img src="img/logos/openaire.png"/>
     </a>
 </div>
-<div class="toolbox">
-    <h4>Threshold</h4>
-    <div id="threshold-slider"></div>
-    <div>
-        <h4>Connection info:</h4>
-        <p>
-            <span id="connectionInfo">hover on a connection to get info.</span>
-        </p>
-    </div>
-    <button value="Full-screen mode" id="fullscreen-button"
-            class="btn btn-default" type="button">
-        <span class="glyphicon glyphicon-fullscreen"></span>
-    </button>
-</div>
+<div id="threshold-slider"></div>
 <div id="map" class="map"></div>
 </body>

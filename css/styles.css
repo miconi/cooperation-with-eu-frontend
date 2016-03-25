@@ -15,27 +15,6 @@ body {
     font-weight: 400;
 }
 
-div.logos {
-    position: fixed;
-    left: 7%;
-    top: 35px;
-
-}
-
-div.logos img {
-    height: 65px;
-    margin-right: 20px;
-}
-
-div.toolbox {
-    position: fixed;
-    width: 200px;
-    left: 7%;
-    top: 180px;
-    background-color: #fff;
-
-}
-
 div.header-gradient {
     width: 100%;
     height: 170px;
@@ -69,6 +48,62 @@ div.header-gradient {
     width: 100%;
     height: 100%;
 }
+
+
+/* Logos */
+
+div.logos {
+    position: fixed;
+    left: 6%;
+    top: 42px;
+}
+
+div.logos img {
+    height: 60px;
+    margin-right: 20px;
+}
+
+div.logos img:hover {
+    opacity: .85;
+}
+
+
+/* Toolbox */
+
+/*div.toolbox {*/
+    /*position: fixed;*/
+    /*width: 200px;*/
+    /*!*height: 50%;*!*/
+    /*left: 7%;*/
+    /*top: 180px;*/
+    /*background-color: #fff;*/
+
+/*}*/
+
+#threshold-slider {
+    position: fixed;
+    left: 8%;
+    top: 150px;
+    height: 50%;
+}
+/* Fullscreen Button */
+
+#fullscreen-button {
+    padding: 5px;
+    position: fixed;
+    right: 7%;
+    top: 50px;
+    font-size: 15px;
+}
+
+#fullscreen-button:hover {
+    color: rgb(38, 88, 189);
+    /*opacity: .7;*/
+    cursor: pointer;
+}
+
+
+/* Arcs */
 
 g.arc g path {
     stroke-linecap: round;

@@ -9,6 +9,8 @@
 
 import $ = require('jquery');
 import noUiSlider = require('noUiSlider');
+import wNumb = require('wNumb');
+wNumb = window.wNumb;
 
 import DataProvider = require("./DataProvider");
 import MapController = require("./MapController");
@@ -38,8 +40,12 @@ class ThresholdController {
             var startMin = rangeMin + (rangeMax - rangeMin) / 6.5;
             var start = [startMin, rangeMax];
 
+            const tooltipFormatter = wNumb({ decimals: 0 });
+
             noUiSlider.create(this.thresholdSlider, {
                 start: start,
+                tooltips: [tooltipFormatter, tooltipFormatter],
+                orientation: 'vertical',
                 connect: true,
                 range: {
                     'min': rangeMin,

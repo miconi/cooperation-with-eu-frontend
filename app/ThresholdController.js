@@ -3,7 +3,8 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'jquery', 'noUiSlider'], function (require, exports, $, noUiSlider) {
+define(["require", "exports", 'jquery', 'noUiSlider', 'wNumb'], function (require, exports, $, noUiSlider, wNumb) {
+    wNumb = window.wNumb;
     var ThresholdController = (function () {
         //------------------------ CONSTRUCTORS --------------------------
         function ThresholdController(dataProvider, mapController) {
@@ -20,8 +21,11 @@ define(["require", "exports", 'jquery', 'noUiSlider'], function (require, export
                 var rangeMax = minMax[1];
                 var startMin = rangeMin + (rangeMax - rangeMin) / 6.5;
                 var start = [startMin, rangeMax];
+                var tooltipFormatter = wNumb({ decimals: 0 });
                 noUiSlider.create(this.thresholdSlider, {
                     start: start,
+                    tooltips: [tooltipFormatter, tooltipFormatter],
+                    orientation: 'vertical',
                     connect: true,
                     range: {
                         'min': rangeMin,

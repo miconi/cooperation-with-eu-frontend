@@ -36,5 +36,7 @@
 /bower_components/datamaps/dist/*
 !/bower_components/datamaps/dist/datamaps.world.js
 
-
+!/bower_components/wnumb
+/bower_components/wnumb/*
+!/bower_components/wnumb/wNumb.js
 
