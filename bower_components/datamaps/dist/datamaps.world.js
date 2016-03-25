@@ -339,11 +339,12 @@
       options = defaultOptions.arcConfig;
     }
 
-    var arcs = layer.selectAll('path.datamaps-arc').data( data, function(d) { return d.origin.country + d.destination.country; } );
+    var arcs = layer.selectAll('g').data( data, function(d) { return d.origin.country + d.destination.country; } );
 
     var path = d3.geo.path()
         .projection(self.projection);
 
+    // ENTER
     var enterGroup = arcs
       .enter()
         .append('svg:g')
@@ -382,7 +383,7 @@
       ;
 
       // ENTER + UPDATE
-      arcs
+      arcs.select("path.datamaps-arc")
           .style('stroke-width', function(datum) {
               return val(datum.strokeWidth, options.strokeWidth, datum);
           })
