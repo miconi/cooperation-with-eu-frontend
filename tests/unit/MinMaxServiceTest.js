@@ -1,11 +1,11 @@
 /**
- * @fileOverview Tests for DataProvider.
+ * @fileOverview Tests for MinMaxService.
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", "intern!bdd", "intern/chai!expect", "../../app/data/DataProvider"], function (require, exports, bdd, expect, DataProvider_1) {
+define(["require", "exports", "intern!bdd", "intern/chai!expect", "../../app/data/MinMaxService"], function (require, exports, bdd, expect, MinMaxService_1) {
     //------------------------ TESTS --------------------------
-    bdd.describe("DataProvider", function () {
+    bdd.describe("MinMaxService", function () {
         bdd.describe("#minMaxFromConnections", function () {
             bdd.it("should find min & max values", function () {
                 // given
@@ -14,7 +14,7 @@ define(["require", "exports", "intern!bdd", "intern/chai!expect", "../../app/dat
                     return { value: n };
                 });
                 // when
-                var minMax = DataProvider_1["default"].minMaxFromConnections(values);
+                var minMax = MinMaxService_1["default"].minMaxFromConnections(values);
                 // then
                 expect(minMax).to.deep.equal([1, 9]);
             });

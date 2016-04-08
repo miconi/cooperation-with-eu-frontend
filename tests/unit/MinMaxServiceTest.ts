@@ -1,5 +1,5 @@
 /**
- * @fileOverview Tests for DataProvider.
+ * @fileOverview Tests for MinMaxService.
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
@@ -11,12 +11,12 @@ import bdd = require("intern!bdd");
 import should = require("intern/chai!should");
 import expect = require("intern/chai!expect");
 
-import DataProvider from "../../app/data/DataProvider";
-import {Connection, CountryPosition, JoinedConnection, ComputedConnection, MinMax, ComputedModel} from "./data";
+import {Connection} from "../../app/data";
+import MinMaxService from "../../app/data/MinMaxService";
 
 //------------------------ TESTS --------------------------
 
-bdd.describe("DataProvider", () => {
+bdd.describe("MinMaxService", () => {
 
     bdd.describe("#minMaxFromConnections", () => {
 
@@ -26,11 +26,11 @@ bdd.describe("DataProvider", () => {
             var values: Connection[] =
                 [9, 2, 5, 2, 1]
                 .map(n => {
-                    return {value: n};
+                    return <Connection> <any> {value: n};
                 });
 
             // when
-            const minMax = DataProvider.minMaxFromConnections(values);
+            const minMax = MinMaxService.minMaxFromConnections(values);
 
             // then
             expect(minMax).to.deep.equal([1, 9]);

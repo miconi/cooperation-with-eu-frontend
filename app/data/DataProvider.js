@@ -3,7 +3,7 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, exports, d3, queue, Enumerable) {
+define(["require", "exports", 'd3', 'queue', 'linqjs', "./MinMaxService"], function (require, exports, d3, queue, Enumerable, MinMaxService_1) {
     /**
      * Creates an instance of DataProvider.
      *
@@ -38,7 +38,7 @@ define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, expor
                     callback(error, null);
                 }
                 else {
-                    callback(error, DataProvider.minMaxFromConnections(connections));
+                    callback(error, MinMaxService_1["default"].minMaxFromConnections(connections));
                 }
             };
         };
@@ -53,7 +53,7 @@ define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, expor
             };
             function processData(connections, positions) {
                 var filteredConnections = filterConnections(connections);
-                var minMax = DataProvider.minMaxFromConnections(filteredConnections);
+                var minMax = MinMaxService_1["default"].minMaxFromConnections(filteredConnections);
                 return addStroke(minMax, joinConnectionsWithPositions(filteredConnections, positions));
             }
             function addStroke(minMax, connections) {
@@ -99,12 +99,6 @@ define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, expor
                 })
                     .toArray();
             }
-        };
-        DataProvider.minMaxFromConnections = function (connections) {
-            var values = Enumerable.from(connections)
-                .select("Number($.value)")
-                .toArray();
-            return [d3.min(values), d3.max(values)];
         };
         return DataProvider;
     })();

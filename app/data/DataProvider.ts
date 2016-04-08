@@ -12,6 +12,7 @@ import queue = require('queue');
 import Enumerable = require('linqjs');
 
 import {Connection, CountryPosition, JoinedConnection, ComputedConnection, MinMax, ComputedModel} from "./../data";
+import MinMaxService from "./MinMaxService";
 
 
 /**
@@ -53,7 +54,7 @@ export default class DataProvider {
             if (error !== null) {
                 callback(error, null)
             } else {
-                callback(error, DataProvider.minMaxFromConnections(connections));
+                callback(error, MinMaxService.minMaxFromConnections(connections));
             }
         }
     }
@@ -70,7 +71,7 @@ export default class DataProvider {
 
         function processData(connections: Connection[], positions: CountryPosition[]): ComputedConnection[] {
             var filteredConnections = filterConnections(connections);
-            var minMax = DataProvider.minMaxFromConnections(filteredConnections);
+            var minMax = MinMaxService.minMaxFromConnections(filteredConnections);
             return addStroke(minMax, joinConnectionsWithPositions(filteredConnections, positions));
         }
 
@@ -131,13 +132,6 @@ export default class DataProvider {
                 )
                 .toArray();
         }
-    }
-
-    static minMaxFromConnections(connections: Connection[]): MinMax {
-        var values: number[] = Enumerable.from(connections)
-            .select("Number($.value)")
-            .toArray();
-        return [d3.min(values), d3.max(values)];
     }
 
 
