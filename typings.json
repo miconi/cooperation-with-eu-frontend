@@ -4,6 +4,7 @@
     "jquery": "github:DefinitelyTyped/DefinitelyTyped/jquery/jquery.d.ts#cf2a968f0edd7d30773f7d23fe3708fa029d5ab7",
     "linq": "github:DefinitelyTyped/DefinitelyTyped/linq/linq.d.ts#b434c063779e38058cc2cf26ec9ec987ba429c43",
     "nouislider": "github:DefinitelyTyped/DefinitelyTyped/nouislider/nouislider.d.ts#91989d35b892f1526c35fb1e55219ba05bc5065e",
-    "screenfull": "github:DefinitelyTyped/DefinitelyTyped/screenfull/screenfull.d.ts#41232640266ad8f92cc5a6686977a153c98432dc"
+    "screenfull": "github:DefinitelyTyped/DefinitelyTyped/screenfull/screenfull.d.ts#41232640266ad8f92cc5a6686977a153c98432dc",
+    "wnumb": "github:DefinitelyTyped/DefinitelyTyped/wnumb/wnumb.d.ts#56295f5058cac7ae458540423c50ac2dcf9fc711"
   }
 }

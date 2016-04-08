@@ -5,51 +5,14 @@
  */
 
 
-///<reference path="../typings/browser.d.ts" />
+///<reference path="../../typings/browser.d.ts" />
 
 import d3 = require('d3');
 import queue = require('queue');
 import Enumerable = require('linqjs');
 
-export = DataProvider;
+import {Connection, CountryPosition, JoinedConnection, ComputedConnection, MinMax, ComputedModel} from "./../data";
 
-
-interface Connection {
-    countryFrom: string;
-    countryTo: string;
-    value: string;
-}
-
-interface CountryPosition {
-    country: string;
-    latitude: string;
-    longitude: string;
-}
-
-interface JoinedConnection {
-    origin: CountryPosition;
-    destination: CountryPosition;
-    value: number;
-}
-
-interface ComputedConnection {
-    origin: CountryPosition;
-    destination: CountryPosition;
-    strokeOpacity: number;
-    strokeWidth: number;
-    value: number;
-}
-
-
-/**
- * First element is min, second is max.
- */
-type MinMax = number[]
-
-interface ComputedModel {
-    connections: ComputedConnection[];
-    minMax: MinMax
-}
 
 /**
  * Creates an instance of DataProvider.
@@ -60,7 +23,7 @@ interface ComputedModel {
  * @param {string} searchUri
  * @param {string} graphByIdUri
  */
-class DataProvider {
+export default class DataProvider {
 
     //------------------------ CONSTRUCTORS --------------------------
 

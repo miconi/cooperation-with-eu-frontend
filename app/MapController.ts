@@ -10,10 +10,8 @@
 import $ = require('jquery');
 import Datamap = require('datamaps');
 
-export = MapController;
 
-
-class MapController {
+export default class MapController {
 
     private map;
 

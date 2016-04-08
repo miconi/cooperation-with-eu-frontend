@@ -108,5 +108,6 @@ define(["require", "exports", 'd3', 'queue', 'linqjs'], function (require, expor
         };
         return DataProvider;
     })();
-    return DataProvider;
+    exports.__esModule = true;
+    exports["default"] = DataProvider;
 });

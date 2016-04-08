@@ -8,10 +8,11 @@
 ///<reference path="../../node_modules/intern/typings/intern/intern.d.ts" />
 
 import bdd = require("intern!bdd");
-import DataProvider = require("app/DataProvider");
 import should = require("intern/chai!should");
 import expect = require("intern/chai!expect");
 
+import DataProvider from "../../app/data/DataProvider";
+import {Connection, CountryPosition, JoinedConnection, ComputedConnection, MinMax, ComputedModel} from "./data";
 
 //------------------------ TESTS --------------------------
 
@@ -22,7 +23,8 @@ bdd.describe("DataProvider", () => {
         bdd.it("should find min & max values", () => {
 
             // given
-            var values = [9, 2, 5, 2, 1]
+            var values: Connection[] =
+                [9, 2, 5, 2, 1]
                 .map(n => {
                     return {value: n};
                 });

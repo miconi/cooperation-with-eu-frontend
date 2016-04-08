@@ -10,15 +10,13 @@
 import $ = require('jquery');
 import noUiSlider = require('noUiSlider');
 import wNumb = require('wNumb');
+
 wNumb = window.wNumb;
 
-import DataProvider = require("./DataProvider");
-import MapController = require("./MapController");
+import DataProvider from "./data/DataProvider";
+import MapController from "./MapController";
 
-export = ThresholdController;
-
-
-class ThresholdController {
+export default class ThresholdController {
 
     private thresholdSlider = $('#threshold-slider')[0];
 

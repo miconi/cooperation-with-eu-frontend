@@ -116,5 +116,6 @@ define(["require", "exports", 'jquery', 'datamaps'], function (require, exports,
         };
         return MapController;
     })();
-    return MapController;
+    exports.__esModule = true;
+    exports["default"] = MapController;
 });

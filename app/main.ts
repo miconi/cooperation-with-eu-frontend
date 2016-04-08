@@ -12,9 +12,9 @@ import screenfull = require('screenfull');
 
 screenfull = window.screenfull; // something is wrong with the screenfull.js module definition
 
-import DataProvider = require("./DataProvider");
-import MapController = require("./MapController");
-import ThresholdController = require("./ThresholdController");
+import DataProvider from "./data/DataProvider";
+import MapController from "./MapController";
+import ThresholdController from "./ThresholdController";
 
 
 //------------------------ LOGIC --------------------------

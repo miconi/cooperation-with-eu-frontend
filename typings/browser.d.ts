@@ -5,3 +5,4 @@
 /// <reference path="browser/ambient/nouislider/nouislider.d.ts" />
 /// <reference path="browser/ambient/require/require.d.ts" />
 /// <reference path="browser/ambient/screenfull/screenfull.d.ts" />
+/// <reference path="browser/ambient/wnumb/wnumb.d.ts" />

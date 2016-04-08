@@ -43,5 +43,6 @@ define(["require", "exports", 'jquery', 'noUiSlider', 'wNumb'], function (requir
         };
         return ThresholdController;
     })();
-    return ThresholdController;
+    exports.__esModule = true;
+    exports["default"] = ThresholdController;
 });

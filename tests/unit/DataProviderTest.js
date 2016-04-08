@@ -3,7 +3,7 @@
  *
  * @author Michał Oniszczuk <m.oniszczuk@icm.edu.pl>
  */
-define(["require", "exports", "intern!bdd", "app/DataProvider", "intern/chai!expect"], function (require, exports, bdd, DataProvider, expect) {
+define(["require", "exports", "intern!bdd", "intern/chai!expect", "../../app/data/DataProvider"], function (require, exports, bdd, expect, DataProvider_1) {
     //------------------------ TESTS --------------------------
     bdd.describe("DataProvider", function () {
         bdd.describe("#minMaxFromConnections", function () {
@@ -14,7 +14,7 @@ define(["require", "exports", "intern!bdd", "app/DataProvider", "intern/chai!exp
                     return { value: n };
                 });
                 // when
-                var minMax = DataProvider.minMaxFromConnections(values);
+                var minMax = DataProvider_1["default"].minMaxFromConnections(values);
                 // then
                 expect(minMax).to.deep.equal([1, 9]);
             });
